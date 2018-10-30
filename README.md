@@ -1,4 +1,4 @@
-# ERC20 Minted CannabisToken 
+# ITP499 Assignment - Mintable Token  
 
 ## Description
 Source code found [here](https://github.com/DApperNetwork1/Ethereum-Developer-Bootcamp)
