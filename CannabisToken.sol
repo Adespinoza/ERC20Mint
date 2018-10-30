@@ -11,10 +11,10 @@ import "./MintableToken.sol";
 
 // Set up your contract to inherit from the imported MintableToken contract. 
 
-contract YourToken {
+contract CannabisToken is MintableToken {
     // Define 3 public state variables: name, symbol, number of decimals. Make sure decimals are always defined as 18.
-    string public constant name = "";
-    string public constant symbol = "";
+    string public constant name = "CannabisToken";
+    string public constant symbol = "🍁";
     uint8 public constant decimals = 18;
 
 }

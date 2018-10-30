@@ -14,7 +14,7 @@ import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/ownershi
  */
  
 // Set up your contract so that it inherits functionality from OpenZeppelin's StandardToken and Ownable.
-contract MintableToken {
+contract MintableToken is ERC20, Ownable {
 
     // Create event that logs the receiver address and the amount of the token being minted.
     event Mint(address indexed to, uint256 amount);
@@ -34,36 +34,36 @@ contract MintableToken {
 
     // Create modifier that allows only the owner of the contract to have permission to take on the role of Minter and mint tokens.
     modifier onlyMinter() {
-        require(isOwner());
+        require(isOwner(), "Only owner of contract has permission to be a Minter and mint tokens");
         _;
     }
 
     // Create function that returns boolean status of whether or not minting is finished.
     // Make sure to use the correct modifier(s).
-    function mintingFinished() {
-        ;
+    function mintingFinished() public view returns(bool) {
+        return mintingFinished_;
     }
 
     // Create function to mint tokens with 2 parameters: the address that will receive the minted tokens and the amount of tokens to mint.
     // Write the function so that it returns a boolean that indicates if the operation was successful.
     // Make sure to include the appropriate modifers.
-    function mint(address _to, uint256 _amount) {
+    function mint(address _to, uint256 _amount) onlyMinter public returns (bool)  {
         // Call mint function inherited from ERC20 contract which mints inputted amount and assigns it to an account.
-        ;
+        _mint(_to, _amount);
         // Emit the Mint event with appropriate input parameters.    
-        ;
+        emit Mint(_to, _amount);
         // Indicate that the operation was successful. 
-        ;
+        return true;
     }
 
     // Create function to stop minting new tokens. Modifiers modifiers modifiers.
     // Write the function so that it returns a boolean that indicates if the operation was successful.
-    function finishMinting() {
+    function finishMinting() onlyMinter public returns (bool) {
         // Update initial state to reflect that minting is finished.
-        ;
+        mintingFinished_ = true;
         // Emit event that logs the completion of token minting.
         emit MintFinished();
         // Indicate that the operation was successful.
-        ;
+        return true;
     }
 }
